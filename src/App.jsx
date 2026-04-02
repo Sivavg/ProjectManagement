@@ -1,0 +1,39 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Layout from './components/Layout';
+import Dashboard from './features/dashboard/Dashboard';
+import EmployeesList from './features/employees/EmployeesList';
+import ProjectsList from './features/projects/ProjectsList';
+import TasksList from './features/tasks/TasksList'; // Simple list view of tasks
+import { Box, Typography } from '@mui/material';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Dashboard />} />
+          
+          <Route path="employees">
+            <Route index element={<EmployeesList />} />
+          </Route>
+          
+          <Route path="projects">
+            <Route index element={<ProjectsList />} />
+          </Route>
+          
+          <Route path="tasks">
+            <Route index element={<TasksList />} />
+          </Route>
+          
+          <Route path="*" element={
+            <Box sx={{ p: 3, textAlign: 'center' }}>
+              <Typography variant="h4">404 - Page Not Found</Typography>
+            </Box>
+          } />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
