@@ -72,7 +72,8 @@ The application will be available at `http://localhost:5173`.
 - **UI/UX**: Extensive use of Dialogs over separate routed pages for creations to ensure smooth user workflows.
 
 ## 📸 Overview
-![alt text](image1.png)
-![alt text](image2.png)
-![alt text](image3.png)
-![alt text](image4.png)
+
+![alt text](public/images/image1.png)
+![alt text](public/images/image2.png)
+![alt text](public/images/image3.png)
+![alt text](public/images/image4.png)
