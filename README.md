@@ -1,79 +1,156 @@
-# ProManage - Project Management Dashboard
+# PowerSoft — Project Management Dashboard
 
-A modern, responsive, and intuitive Project Management Dashboard built with React, robust state management via Redux Toolkit, and fluid drag-and-drop capability for tasks.
+A full-featured **Project Management Dashboard** built with React, Redux Toolkit, and Material UI. Manage employees, projects, and tasks with a beautiful Kanban drag-and-drop board.
 
-## 🚀 Features
+---
 
-### Employee Management
-- Complete CRUD operations for Employees.
-- Tracks Name, Position, unique Email, and Profile Image.
+## 🚀 Live Demo
 
-### Project Management
-- Complete CRUD operations for Projects.
-- Attach specific teams (assigned employees) to projects.
-- Validates timelines with Start and End Dates.
-- Shows team sizes and durations.
+> _Deploy URL here (e.g. Vercel / Netlify)_
 
-### Task Management
-- Create tasks linked dynamically to specific projects.
-- Assign tasks exclusively to employees already part of that project.
-- Tracks ETA and visual Reference Images.
+---
 
-### Interactive Task Board (Dashboard)
-- Implements interactive Drag & Drop columns (`@hello-pangea/dnd`): Need to Do, In Progress, Need for Test, Completed, Re-open.
-- Filter task views dynamically by Project.
-- Visual cues with reference images, assigned avatars, and ETA timelines format.
+## ✨ Features
 
-## 🛠 Tech Stack
-- **Frontend Framework:** React (Functional Components + Hooks, Vite)
-- **Routing:** React Router v6
-- **State Management:** Redux Toolkit (Persistent with localStorage)
-- **Drag and Drop:** `@hello-pangea/dnd`
-- **Form Handling:** React Hook Form
-- **Form Validation:** Yup
-- **UI Framework:** Material UI (MUI) v5
-- **Icons:** Material Icons
-- **Date Parsing:** `date-fns`
-- **Unique IDs:** `uuid`
+### 👥 Employee Management
+- Create, View, Edit, Delete employees
+- Fields: Name, Position, Official Email (unique), Profile Image
+- Email uniqueness validation
+- Profile photo via URL
 
-## ⚙️ Setup Instructions
+### 📁 Project Management
+- Create, View (List + Detail), Edit, Delete projects
+- Fields: Title, Description, Logo, Start & End Date/Time, Assigned Employees
+- Validation: Start date must be before End date
+- Project Detail page shows team, task breakdown, and completion progress
 
-### 1. Requirements
-- Node.js (v16.0 or higher)
-- npm or yarn
+### ✅ Task Management
+- Tasks are linked to existing projects only
+- Employees selectable only from those assigned to the chosen project
+- Fields: Title, Description, Assigned Employee, ETA, Reference Image, Status
+- Full CRUD with dialogs
 
-### 2. Installation
-Clone the repository, navigate into the project directory, and install dependencies:
+### 📊 Dashboard (Kanban Board)
+- 5 columns: **Need to Do · In Progress · Need for Test · Completed · Re-open**
+- **Drag & Drop** tasks across columns (status updates automatically)
+- Filter tasks by project via dropdown
+- Task cards show: title, project name, assigned employee avatar, ETA, reference image thumbnail
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React 19 (Functional Components + Hooks) |
+| State | Redux Toolkit + `react-redux` |
+| Routing | React Router DOM v7 |
+| Forms | React Hook Form + Yup |
+| UI | Material UI v7 |
+| Drag & Drop | `@hello-pangea/dnd` |
+| Persistence | `localStorage` (survives page refresh) |
+| Build | Vite |
+
+---
+
+## 📦 Installation & Setup
+
+### Prerequisites
+- Node.js ≥ 18
+- npm ≥ 9
+
+### Steps
 
 ```bash
-git clone <repository-url>
-cd <project-directory>
+# 1. Clone the repository
+git clone https://github.com/<your-username>/PowerSoft.git
+cd PowerSoft
+
+# 2. Install dependencies
 npm install
-```
 
-### 3. Running the App
-Start the Vite development server:
-```bash
+# 3. Start development server
 npm run dev
 ```
 
-The application will be available at `http://localhost:5173`.
+The app will be available at `http://localhost:5173`
+
+### Build for Production
+```bash
+npm run build
+npm run preview
+```
+
+---
 
 ## 📂 Project Structure
 
-- `src/features/` - Groups logic by domain area (dashboard, employees, projects, tasks) rather than component type. Each feature houses its Redux slice and major UI components.
-- `src/components/` - Houses reusable layout, navigation, and generic components.
-- `src/app/store.js` - Configuration point for the Redux store.
-- `src/theme.js` - Global Material UI context definitions.
+```
+src/
+├── app/
+│   └── store.js                  # Redux store (employees, projects, tasks)
+├── components/
+│   ├── Layout.jsx                 # Sidebar + main content shell
+│   ├── ImageUpload.jsx            # File-based image uploader
+│   └── ImageUrlInput.jsx          # URL-based image input with preview
+├── features/
+│   ├── dashboard/
+│   │   └── Dashboard.jsx          # Kanban board with drag-and-drop
+│   ├── employees/
+│   │   ├── EmployeesList.jsx      # CRUD for employees
+│   │   └── employeesSlice.js      # Redux slice + localStorage persistence
+│   ├── projects/
+│   │   ├── ProjectsList.jsx       # CRUD list for projects
+│   │   ├── ProjectDetail.jsx      # Project detail page with tasks & team
+│   │   └── projectsSlice.js       # Redux slice + localStorage persistence
+│   └── tasks/
+│       ├── TasksList.jsx          # CRUD for tasks with project/employee linking
+│       └── tasksSlice.js          # Redux slice + localStorage persistence
+├── utils/
+│   └── imageStore.js              # Handles image data separately in localStorage
+├── theme.js                       # MUI theme customization
+└── App.jsx                        # Routes definition
+```
 
-## 🌟 Quality Standards Added
-- **Validation**: Strict Form schema checks powered by Yup ensuring required fields and date logic (Start < End). Unique checks built-in on dispatch intercepts.
-- **Persistence**: Data gracefully persists across browser reloads ensuring zero test data loss using the Web Storage API.
-- **UI/UX**: Extensive use of Dialogs over separate routed pages for creations to ensure smooth user workflows.
+---
 
-## 📸 Overview
+## 🎯 Validation Rules
 
-![alt text](public/images/image1.png)
-![alt text](public/images/image2.png)
-![alt text](public/images/image3.png)
-![alt text](public/images/image4.png)
+| Rule | Implementation |
+|---|---|
+| All fields mandatory | Yup schema on every form |
+| Email must be valid & unique | Yup `.email()` + manual duplicate check |
+| Start Date < End Date | Yup `.min(yup.ref('startDate'))` |
+| Only project-assigned employees selectable for tasks | `availableEmployees` filters by `proj.assignedEmployeeIds` |
+
+---
+
+## 💾 Data Persistence
+
+All data is stored in **`localStorage`**:
+- `employees` → employee records (images stored separately)
+- `projects` → project records (logos stored separately)  
+- `tasks` → task records (reference images stored separately)
+
+Images are stored separately (keyed by `emp_<id>`, `proj_<id>`, `task_<id>`) to avoid the localStorage 5MB size limit on the main data array.
+
+---
+
+## 📸 Screenshots
+
+> _Add screenshots or GIF here_
+
+---
+
+## 📋 Workflow
+
+1. **Add Employees** → Go to Employees, click "Add Employee"
+2. **Create a Project** → Go to Projects, click "New Project", assign employees
+3. **Add Tasks** → Go to Tasks, click "Add Task", select project → only assigned employees shown
+4. **Manage Board** → Dashboard shows Kanban; drag cards to change status; filter by project
+
+---
+
+## 👤 Author
+
+- **Siva** — [GitHub Profile](https://github.com/<your-username>)

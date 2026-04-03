@@ -1,5 +1,6 @@
 import { useState, forwardRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   Box, Typography, Button, Paper, Table, TableBody, TableCell, TableContainer,
   TableHead, TableRow, Avatar, IconButton, Dialog, DialogTitle, DialogContent,
@@ -36,6 +37,7 @@ export default function ProjectsList() {
   const projects  = useSelector((state) => state.projects.list);
   const employees = useSelector((state) => state.employees.list);
   const dispatch  = useDispatch();
+  const navigate  = useNavigate();
 
   const [open, setOpen]                 = useState(false);
   const [viewOpen, setViewOpen]         = useState(false);
@@ -160,7 +162,7 @@ export default function ProjectsList() {
                       </Box>
                     </TableCell>
                     <TableCell align="right">
-                      <Tooltip title="View"><IconButton size="small" onClick={() => { setSelectedProj(proj); setViewOpen(true); }}><VisibilityIcon fontSize="small" /></IconButton></Tooltip>
+                      <Tooltip title="View Details"><IconButton size="small" onClick={() => navigate(`/projects/${proj.id}`)}><VisibilityIcon fontSize="small" /></IconButton></Tooltip>
                       <Tooltip title="Edit"><IconButton size="small" color="primary" onClick={() => handleOpen(proj)}><EditIcon fontSize="small" /></IconButton></Tooltip>
                       <Tooltip title="Delete"><IconButton size="small" color="error" onClick={() => handleDelete(proj.id)}><DeleteIcon fontSize="small" /></IconButton></Tooltip>
                     </TableCell>
