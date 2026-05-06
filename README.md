@@ -6,7 +6,7 @@ A full-featured **Project Management Dashboard** built with React, Redux Toolkit
 
 ## 🚀 Live Demo
 
-> _Deploy URL here (e.g. Vercel / Netlify)_
+> [https://projectmanagementpowersoft.netlify.app/](https://projectmanagementpowersoft.netlify.app/)
 
 ---
 
