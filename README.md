@@ -138,7 +138,10 @@ Images are stored separately (keyed by `emp_<id>`, `proj_<id>`, `task_<id>`) to 
 
 ## 📸 Screenshots
 
-> _Add screenshots or GIF here_
+![alt text](public/images/image1.png)
+![alt text](public/images/image2.png)
+![alt text](public/images/image3.png)
+![alt text](public/images/image4.png)
 
 ---
 
@@ -153,4 +156,4 @@ Images are stored separately (keyed by `emp_<id>`, `proj_<id>`, `task_<id>`) to 
 
 ## 👤 Author
 
-- **Siva** — [GitHub Profile](https://github.com/<your-username>)
+- **Siva** — [GitHub Profile](https://github.com/Sivavg/ProjectManagement)
